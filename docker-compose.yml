@@ -12,13 +12,13 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
-  ngnix:
-    image: ngnix
+  nginx:
+    image: nginx
     depends_on:
       - client
     restart: always
     build: 
-      context: ./ngnix
+      context: ./nginx
       dockerfile: Dockerfile
     ports:
       - '3050:80'
