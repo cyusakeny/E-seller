@@ -2,8 +2,10 @@ version: '2'
 services:
   server:
     build:
-      context: ./server/
+      context: ./server
+      dockerfile: ./Dockerfile
     command: npm run start
+    hostname: api
     volumes:
       - ./server/:/usr/app
       - /usr/app/node_modules
@@ -16,16 +18,19 @@ services:
     image: nginx
     depends_on:
       - client
+      - server
     restart: always
     build: 
       context: ./nginx
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     ports:
       - '3050:80'
   client:
     build:
-      context: ./client/
+      context: ./client
+      dockerfile: ./Dockerfile
     command: npm start
+    hostname: client
     volumes:
       - ./client/:/usr/app
       - /usr/app/node_modules
